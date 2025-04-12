@@ -5,3 +5,7 @@
 "manual"
 "manual"
 "manual"
+"uno"
+"uno.1"
+"uno.2"
+"uno.3"
