@@ -12,3 +12,4 @@ This document tracks empty folder deletion scenarios.
    - Expectation: The folder should remain due to remaining hidden files.
 5. Delete files from a mix of empty and non-empty sibling folders.
    - Expectation: Only the folders that become empty should be removed.
+\nMixed operation update
