@@ -1,3 +1,0 @@
-This is a root level file.
-
-Added a new line to rootfile.
