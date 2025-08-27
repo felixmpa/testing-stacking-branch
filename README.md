@@ -1,3 +1,2 @@
 # DOCUMENTATION
-This repository demonstrates complex file operations.
-\nAdditional root info
+This is a test doom game
