@@ -1,10 +1,13 @@
 import type { A } from "../A/A";
 import type { C } from "../C/C";
 import type { D } from "../D/D";
+import type { E } from "../E/E";
+import type { F } from "../F/F";
 
 export class B {
   private readonly interactions: string[] = [];
 
+  // Original methods with A, C, D
   receiveTest(from: A): void {
     this.log("Received test directive from A");
   }
@@ -47,6 +50,28 @@ export class B {
 
   receiveStrategyResponse(from: D, response: string): void {
     this.log(`Received strategy response from D: ${response}`);
+  }
+
+  // Bidirectional methods with E
+  acknowledgeMonitoring(from: E): void {
+    this.log("Acknowledged monitoring from E");
+    const data = "B operational data";
+    from.receiveDataFromB(this, data);
+  }
+
+  receiveAlertFromE(from: E, alert: string): void {
+    this.log(`Received alert from E: ${alert}`);
+  }
+
+  // Bidirectional methods with F
+  acceptOrchestration(from: F): void {
+    this.log("Accepted orchestration from F");
+    const state = "B current state";
+    from.receiveStateFromB(this, state);
+  }
+
+  executeCommandFromF(from: F, command: string): void {
+    this.log(`Executed command from F: ${command}`);
   }
 
   getHistory(): readonly string[] {

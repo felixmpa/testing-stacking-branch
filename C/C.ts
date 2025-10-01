@@ -1,10 +1,13 @@
 import type { A } from "../A/A";
 import type { B } from "../B/B";
 import type { D } from "../D/D";
+import type { E } from "../E/E";
+import type { F } from "../F/F";
 
 export class C {
   private readonly interactions: string[] = [];
 
+  // Original methods with A, B, D
   provideAnalysis(to: A, topic: string): void {
     const report = `Analysis on ${topic}`;
     this.log(`Provided analysis to A: ${report}`);
@@ -37,6 +40,32 @@ export class C {
   reportToA(target: A, report: string): void {
     this.log(`Reported to A: ${report}`);
     target.recordReportFromC(this, report);
+  }
+
+  // Bidirectional methods with E
+  registerSubscriberE(from: E): void {
+    this.log("Registered E as subscriber");
+    const analytics = "C analytics data";
+    from.receiveAnalyticsFromC(this, analytics);
+  }
+
+  generateReportForE(to: E, reportType: string): void {
+    const report = `${reportType} report generated`;
+    this.log(`Generated ${reportType} report for E`);
+    to.receiveAnalyticsFromC(this, report);
+  }
+
+  // Bidirectional methods with F
+  confirmIntegrationWithF(from: F): void {
+    this.log("Confirmed integration with F");
+    const insights = "C insights data";
+    from.receiveInsightsFromC(this, insights);
+  }
+
+  provideDataToF(to: F, dataType: string): void {
+    const data = `${dataType} data from C`;
+    this.log(`Provided ${dataType} data to F`);
+    to.receiveInsightsFromC(this, data);
   }
 
   getHistory(): readonly string[] {

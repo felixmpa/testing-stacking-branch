@@ -1,10 +1,13 @@
 import type { B } from "../B/B";
 import type { C } from "../C/C";
 import type { D } from "../D/D";
+import type { E } from "../E/E";
+import type { F } from "../F/F";
 
 export class A {
   private readonly interactions: string[] = [];
 
+  // Original methods with B, C, D
   sendTest(to: B): void {
     this.log("Sent test directive to B");
     to.receiveTest(this);
@@ -44,6 +47,28 @@ export class A {
 
   handleAlertFromD(from: D, alert: string): void {
     this.log(`Received alert from D: ${alert}`);
+  }
+
+  // Bidirectional methods with E
+  provideStatusToE(to: E): void {
+    const status = "A is operational";
+    this.log(`Provided status to E: ${status}`);
+    to.receiveStatusFromA(this, status);
+  }
+
+  receiveMetricsFromE(from: E, metrics: string): void {
+    this.log(`Received metrics from E: ${metrics}`);
+  }
+
+  // Bidirectional methods with F
+  acknowledgeSyncFromF(from: F): void {
+    this.log("Acknowledged synchronization from F");
+    const config = "A configuration data";
+    from.receiveConfigFromA(this, config);
+  }
+
+  applyUpdateFromF(from: F, update: string): void {
+    this.log(`Applied update from F: ${update}`);
   }
 
   getHistory(): readonly string[] {
