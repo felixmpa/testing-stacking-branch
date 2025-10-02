@@ -3,6 +3,7 @@ import type { B } from "../B/B";
 import type { D } from "../D/D";
 import type { E } from "../E/E";
 import type { F } from "../F/F";
+import { Orchestrator } from "../Orchestrator/orchestrator";
 
 export class C {
   private readonly interactions: string[] = [];
@@ -70,6 +71,17 @@ export class C {
 
   getHistory(): readonly string[] {
     return this.interactions;
+  }
+
+  registerWithOrchestrator(orchestrator: Orchestrator): void {
+    this.log("Registered with Orchestrator");
+    const analysis = "C analysis systems online";
+    orchestrator.receiveAnalysisFromC(this, analysis);
+  }
+
+  provideInsightsToOrchestrator(to: Orchestrator): void {
+    this.log("Provided insights to Orchestrator");
+    // Insights logic here
   }
 
   private log(entry: string): void {

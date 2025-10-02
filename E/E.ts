@@ -2,6 +2,7 @@ import type { A } from "../A/A";
 import type { B } from "../B/B";
 import type { C } from "../C/C";
 import type { D } from "../D/D";
+import { Orchestrator } from "../Orchestrator/orchestrator";
 
 export class E {
     private readonly interactions: string[] = [];
@@ -68,6 +69,16 @@ export class E {
 
     getHistory(): readonly string[] {
         return this.interactions;
+    }
+
+    registerWithOrchestrator(orchestrator: Orchestrator): void {
+        this.log("Registered with Orchestrator");
+        const data = "E monitoring systems active";
+        orchestrator.receiveMonitoringDataFromE(this, data);
+    }
+
+    applyMonitoringConfig(from: Orchestrator, config: string): void {
+        this.log(`Applied monitoring config from Orchestrator: ${config}`);
     }
 
     private log(entry: string): void {

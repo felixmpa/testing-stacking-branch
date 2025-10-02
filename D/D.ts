@@ -3,6 +3,7 @@ import type { B } from "../B/B";
 import type { C } from "../C/C";
 import type { E } from "../E/E";
 import type { F } from "../F/F";
+import { Orchestrator } from "../Orchestrator/orchestrator";
 
 export class D {
   private readonly interactions: string[] = [];
@@ -60,6 +61,17 @@ export class D {
   getHistory(): readonly string[] {
     return this.interactions;
   }
+
+  registerWithOrchestrator(orchestrator: Orchestrator): void {
+    this.log("Registered with Orchestrator");
+    const result = "D task execution ready";
+    orchestrator.receiveCompletionFromD(this, result);
+  }
+
+  acknowledgePriorityFromOrchestrator(from: Orchestrator, priority: string): void {
+    this.log(`Acknowledged priority from Orchestrator: ${priority}`);
+  }
+
 
   private log(entry: string): void {
     this.interactions.push(entry);

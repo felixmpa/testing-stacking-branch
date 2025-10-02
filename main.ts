@@ -4,141 +4,83 @@ import { C } from './C/C';
 import { D } from './D/D';
 import { E } from './E/E';
 import { F } from './F/F';
+import { Orchestrator } from './Orchestrator/orchestrator';
 
 function main() {
-    console.log('='.repeat(70));
-    console.log('INICIANDO SISTEMA DE COMPONENTES INTERCONECTADOS');
-    console.log('='.repeat(70));
-    console.log();
+  console.log('='.repeat(70));
+  console.log('INICIANDO SISTEMA CON ORCHESTRATOR');
+  console.log('='.repeat(70));
+  console.log();
 
-    // Instanciar todos los componentes
-    const componentA = new A();
-    const componentB = new B();
-    const componentC = new C();
-    const componentD = new D();
-    const componentE = new E();
-    const componentF = new F();
+  // Crear Orchestrator primero
+  const orchestrator = new Orchestrator();
+  
+  // Instanciar componentes
+  const componentA = new A();
+  const componentB = new B();
+  const componentC = new C();
+  const componentD = new D();
+  const componentE = new E();
+  const componentF = new F();
 
-    console.log('Todos los componentes instanciados\n');
+  // ===== FASE 0: Inicialización con Orchestrator =====
+  console.log('--- FASE 0: Registro con Orchestrator ---');
+  orchestrator.startSystem();
+  orchestrator.initializeA(componentA);
+  orchestrator.initializeB(componentB);
+  orchestrator.initializeC(componentC);
+  orchestrator.initializeD(componentD);
+  orchestrator.initializeE(componentE);
+  orchestrator.initializeF(componentF);
+  console.log(`${orchestrator.getSystemStatus()}\n`);
 
-    // ===== FASE 1: Relaciones originales entre A, B, C, D =====
-    console.log('--- FASE 1: Interacciones A-B-C-D ---');
+  // ===== FASE 1: Orchestrator coordina sistema =====
+  console.log('--- FASE 1: Orchestrator coordina componentes ---');
+  orchestrator.sendCommandToA(componentA, "Initialize systems");
+  orchestrator.delegateTaskToB(componentB, "Process data pipeline");
+  orchestrator.requestInsightsFromC(componentC);
+  orchestrator.assignPriorityToD(componentD, "High: Security scan");
+  orchestrator.configureMonitoringE(componentE, "Monitor all endpoints");
+  orchestrator.synchronizeWithF(componentF);
+  console.log('Fase 1 completada\n');
 
-    componentA.sendTest(componentB);
-    componentA.sendMessage(componentB, "Iniciando coordinación");
-    componentB.sendReply(componentA, "Coordinación confirmada");
+  // ===== FASE 2: Interacciones entre componentes =====
+  console.log('--- FASE 2: Interacciones A-B-C-D-E-F ---');
+  componentA.sendTest(componentB);
+  componentA.requestAnalysis(componentC, "System performance");
+  componentE.monitorB(componentB);
+  componentF.orchestrateB(componentB);
+  console.log('Fase 2 completada\n');
 
-    componentA.requestAnalysis(componentC, "Performance metrics");
-    componentB.coordinateWithC(componentC, "Strategic alignment");
-    componentC.sendFeedback(componentB, "Alignment looks good");
+  // ===== MOSTRAR HISTORIALES =====
+  console.log('='.repeat(70));
+  console.log('HISTORIAL DE INTERACCIONES');
+  console.log('='.repeat(70));
 
-    componentA.assignTask(componentD, "Deploy updates");
-    componentB.shareStrategy(componentD, "Optimization plan");
-    componentC.alignWithD(componentD, "High priority tasks");
-    componentD.sendAlert(componentA, "Deployment ready");
+  const allComponents = [
+    { name: 'Orchestrator', instance: orchestrator },
+    { name: 'A', instance: componentA },
+    { name: 'B', instance: componentB },
+    { name: 'C', instance: componentC },
+    { name: 'D', instance: componentD },
+    { name: 'E', instance: componentE },
+    { name: 'F', instance: componentF }
+  ];
 
-    console.log('Fase 1 completada\n');
-
-    // ===== FASE 2: E interactúa con todos =====
-    console.log('--- FASE 2: E (Monitoreo) interactúa con todos ---');
-
-    componentE.requestStatusFromA(componentA);
-    componentE.sendMetricsToA(componentA, "System health: 95%");
-
-    componentE.monitorB(componentB);
-    componentE.sendAlertToB(componentB, "Traffic spike detected");
-
-    componentE.subscribeToC(componentC);
-    componentE.requestReportFromC(componentC, "Analytics");
-
-    componentE.trackD(componentD);
-    componentE.sendInstructionToD(componentD, "Optimize resource usage");
-
-    console.log('Fase 2 completada\n');
-
-    // ===== FASE 3: F interactúa con todos =====
-    console.log('--- FASE 3: F (Coordinador) interactúa con todos ---');
-
-    componentF.synchronizeWithA(componentA);
-    componentF.deployUpdateToA(componentA, "Security patch v2.1");
-
-    componentF.orchestrateB(componentB);
-    componentF.issueCommandToB(componentB, "Scale up instances");
-
-    componentF.integrateWithC(componentC);
-    componentF.requestDataFromC(componentC, "User behavior");
-
-    componentF.coordinateWithD(componentD);
-    componentF.assignPriorityToD(componentD, "Critical: Database backup");
-
-    console.log('Fase 3 completada\n');
-
-    // ===== FASE 4: Interacciones cruzadas complejas =====
-    console.log('--- FASE 4: Interacciones cruzadas complejas ---');
-
-    componentD.respondToStrategy(componentB, "Strategy executed successfully");
-    componentC.exchangeIdeasWithB(componentB, "New feature proposals");
-    componentD.shareUpdate(componentC, "Tasks completed: 8/10");
-    componentB.sendThank(componentA, "Great coordination today");
-
-    console.log('Fase 4 completada\n');
-
-    // ===== MOSTRAR HISTORIALES =====
-    console.log('='.repeat(70));
-    console.log('HISTORIAL DE INTERACCIONES POR COMPONENTE');
-    console.log('='.repeat(70));
-    console.log();
-
-    const components = [
-        { name: 'A', instance: componentA },
-        { name: 'B', instance: componentB },
-        { name: 'C', instance: componentC },
-        { name: 'D', instance: componentD },
-        { name: 'E', instance: componentE },
-        { name: 'F', instance: componentF }
-    ];
-
-    components.forEach(({ name, instance }) => {
-        console.log(`\nComponente ${name}:`);
-        console.log('-'.repeat(70));
-        const history = instance.getHistory();
-        if (history.length === 0) {
-            console.log('  (Sin interacciones)');
-        } else {
-            history.forEach((entry, index) => {
-                console.log(`  ${index + 1}. ${entry}`);
-            });
-        }
-        console.log(`  Total de interacciones: ${history.length}`);
+  allComponents.forEach(({ name, instance }) => {
+    console.log(`\n${name}:`);
+    console.log('-'.repeat(70));
+    const history = instance.getHistory();
+    history.forEach((entry, index) => {
+      console.log(`  ${index + 1}. ${entry}`);
     });
+    console.log(`  Total: ${history.length} interacciones`);
+  });
 
-    // ===== RESUMEN ESTADÍSTICO =====
-    console.log('\n');
-    console.log('='.repeat(70));
-    console.log('RESUMEN ESTADÍSTICO');
-    console.log('='.repeat(70));
-
-    const totalInteractions = components.reduce(
-        (sum, { instance }) => sum + instance.getHistory().length,
-        0
-    );
-
-    console.log(`\nTotal de interacciones registradas: ${totalInteractions}`);
-    console.log(`Componentes activos: ${components.length}`);
-    console.log(`Promedio de interacciones por componente: ${(totalInteractions / components.length).toFixed(2)}`);
-
-    console.log('\n--- Interacciones por componente ---');
-    components.forEach(({ name, instance }) => {
-        const count = instance.getHistory().length;
-        const bar = '█'.repeat(Math.floor(count / 2));
-        console.log(`${name}: ${bar} (${count})`);
-    });
-
-    console.log('\n');
-    console.log('='.repeat(70));
-    console.log('SISTEMA COMPLETADO EXITOSAMENTE');
-    console.log('='.repeat(70));
+  orchestrator.shutdownSystem();
+  console.log('\n='.repeat(70));
+  console.log('SISTEMA FINALIZADO');
+  console.log('='.repeat(70));
 }
 
-// Ejecutar el sistema
 main();

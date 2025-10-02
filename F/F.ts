@@ -2,6 +2,7 @@ import type { A } from "../A/A";
 import type { B } from "../B/B";
 import type { C } from "../C/C";
 import type { D } from "../D/D";
+import { Orchestrator } from "../Orchestrator/orchestrator";
 
 export class F {
     private readonly interactions: string[] = [];
@@ -68,6 +69,16 @@ export class F {
 
     getHistory(): readonly string[] {
         return this.interactions;
+    }
+
+    registerWithOrchestrator(orchestrator: Orchestrator): void {
+        this.log("Registered with Orchestrator");
+        const coordination = "F coordination systems ready";
+        orchestrator.receiveCoordinationFromF(this, coordination);
+    }
+
+    acknowledgeSyncFromOrchestrator(from: Orchestrator): void {
+        this.log("Acknowledged sync from Orchestrator");
     }
 
     private log(entry: string): void {
