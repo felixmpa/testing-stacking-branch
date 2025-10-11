@@ -1,0 +1,10 @@
+Resumen de hallazgos
+====================
+
+1. **SVM en cáncer de mama**: La tubería con estandarización y SVM radial incluida en `svm_breast_cancer.ipynb` ofrece una métrica F1 esperada superior a 0.95. El ajuste de `C` y `gamma` mediante validación cruzada reduce el riesgo de sobreajuste y mantiene una alta sensibilidad para los casos malignos.
+
+2. **Reducción de dimensionalidad en OULAD**: En `oulad_dimensionality_reduction.ipynb` se observa que el primer componente de PCA separa parcialmente a los estudiantes que aprueban, impulsado por créditos estudiados y participación. t-SNE revela clústeres asociados a patrones de interacción, mientras que la proyección aleatoria ofrece una vista rápida conservando tendencias globales.
+
+3. **Ensambles en Iris**: `iris_ensembles.ipynb` compara cuatro estrategias. Los ensambles de votación y stacking logran accuracies cercanas a 0.97 en validación cruzada, superando a modelos individuales. Random Forest y Gradient Boosting mantienen resultados sólidos con baja varianza.
+
+Estos análisis resaltan la importancia de pipelines reproducibles, reducción de dimensionalidad para comprender datos educativos y la potencia de ensambles en problemas multiclase clásicos.
